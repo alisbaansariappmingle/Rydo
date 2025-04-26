@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FaEye, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import TablePagination from '@mui/material/TablePagination';
 const DriverManagement = () => {
+
   const [drivers, setDrivers] = useState([
     {
       id: 1,
@@ -35,7 +36,17 @@ const DriverManagement = () => {
 
   const [filterText, setFilterText] = useState("");
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   const handleViewProfile = (id) => {
     navigate("/driver-details");
   };
@@ -48,7 +59,7 @@ const DriverManagement = () => {
     <div className="p-6 bg-yellow-50 min-h-screen">
       <h2 className="text-2xl font-bold mb-4">Driver Management</h2>
 
-      <div className="relative w-full md:w-1/2 ml-auto mb-4 flex">
+      <div className="relative w-full md:w-1/2 ml-auto mb-4 flex bg-white">
         <input
           type="text"
           placeholder="Search by name..."
@@ -59,8 +70,8 @@ const DriverManagement = () => {
         <FaSearch className="absolute left-3 top-3 text-gray-500" />
       </div>
 
-      <div className="overflow-x-auto rounded-lg">
-        <table className="min-w-full bg-white shadow-md rounded-lg">
+      <div className="overflow-x-auto bg-white rounded-xl shadow-lg">
+        <table className="min-w-full table-auto">
           <thead>
             <tr className="bg-[#53514d] text-white text-sm font-semibold">
               <th className="px-10 py-3 text-left">ID</th>
@@ -74,7 +85,7 @@ const DriverManagement = () => {
           </thead>
           <tbody>
             {filteredDrivers.length > 0 ? (
-              filteredDrivers.map((driver) => (
+              filteredDrivers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((driver) => (
                 <tr
                   key={driver.id}
                   className="border-b hover:bg-gray-100 text-sm"
@@ -105,6 +116,15 @@ const DriverManagement = () => {
             )}
           </tbody>
         </table>
+        <TablePagination
+          component="div"
+          count={drivers.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          className="flex justify-end"
+        />
       </div>
     </div>
   );

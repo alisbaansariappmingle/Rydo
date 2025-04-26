@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileSection = () => {
   const userData = {
@@ -6,16 +7,17 @@ const ProfileSection = () => {
       name: "Alish",
       email: "alish@example.com",
       mobileNo: "+123456789",
-      profileImage: "https://via.placeholder.com/150", // Example profile image
+      profileImage: "https://via.placeholder.com/150",
       ridesDetails: [
-        { 
-          rideId: 1, 
-          date: "2024-11-01", 
-          pickup: "City Center", 
-          drop: "Airport", 
-          distance: "12 km", 
-          price: "₹ 250", 
-          status: "Complete" 
+        {
+          rideId: 1,
+          date: "2024-11-01",
+          pickup: "City Center",
+          drop: "Airport",
+          driverName: "Manish",
+          distance: "12 km",
+          price: "₹ 250",
+          status: "Complete"
         },
 
       ]
@@ -23,26 +25,29 @@ const ProfileSection = () => {
   };
 
   const user = userData[1];
-
+  const navigate = useNavigate();
+  const handleDriverProfile = () => {
+    navigate('/driver-details')
+  }
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h2 className="text-2xl font-semibold text-gray-800 mb-8">Details</h2>
 
       {/* User Info */}
       <div className="bg-white p-10 rounded-xl shadow-md mb-6 flex flex-wrap items-center ">
-       
+
         <div className="space-y-2 flex-1">
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Mobile No.:</strong> {user.mobileNo}</p>
         </div>
         <div className='flex-1 justify-end'>
-       <img 
-          src={user.profileImage} 
-          alt="Profile" 
-          className="w-24 h-24 rounded-xl object-cover border-2 border-gray-700 justify-end ml-auto"
-        />
-       </div>
+          <img
+            src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-Transparent-Clip-Art-Background.png"
+            alt="Profile"
+            className="w-44 h-44 rounded-xl object-cover  justify-end ml-auto"
+          />
+        </div>
       </div>
 
       {/* Ride Details Section */}
@@ -55,6 +60,7 @@ const ProfileSection = () => {
               <p><strong>Date:</strong> {ride.date}</p>
               <p><strong>Pickup Location:</strong> {ride.pickup}</p>
               <p><strong>Drop Location:</strong> {ride.drop}</p>
+              <p className='cursor-pointer font-bold' onClick={handleDriverProfile}><strong>Driver Name:</strong> {ride.driverName}</p>
               <p><strong>Distance:</strong> {ride.distance}</p>
               <p><strong>Price:</strong> {ride.price}</p>
               <p><strong>Status:</strong> {ride.status}</p>

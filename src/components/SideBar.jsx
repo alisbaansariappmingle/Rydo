@@ -40,6 +40,11 @@ const SideBar = () => {
       link: "/ride-management",
     },
     {
+      icon: <FaCar style={{ fontSize: "1.5rem" }} />,
+      title: "Vehicle Management",
+      link: "/car-management",
+    },
+    {
       icon: <FaUsers style={{ fontSize: "1.5rem" }} />,
       title: "Booking Management",
       link: "/booking",  
@@ -59,6 +64,11 @@ const SideBar = () => {
       icon: <MdOutlineSupportAgent style={{ fontSize: "1.5rem" }} />,
       title: "Compalaints",
       link: "/complaints",
+    },
+    {
+      icon: <MdOutlineSupportAgent style={{ fontSize: "1.5rem" }} />,
+      title: "SOS",
+      link: "/sos",
     },
     {
       icon: <IoMdSettings style={{ fontSize: "1.5rem" }} />,

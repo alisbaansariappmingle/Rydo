@@ -3,8 +3,20 @@ import { FaCar } from "react-icons/fa";
 import DataTable from "react-data-table-component";
 import { FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import TablePagination from '@mui/material/TablePagination';
 
 const RidesManagement = () => {
+   const [page, setPage] = useState(0);
+      const [rowsPerPage, setRowsPerPage] = useState(3);
+  
+      const handleChangePage = (event, newPage) => {
+          setPage(newPage);
+      };
+  
+      const handleChangeRowsPerPage = (event) => {
+          setRowsPerPage(parseInt(event.target.value, 10));
+          setPage(0);
+      };
   const rideDetails = [
     {
       id: 1,
@@ -96,7 +108,7 @@ const RidesManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {rideDetails.map((ride) => (
+            {rideDetails.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((ride) => (
               <tr key={ride.id} className="border-t">
                 <td className="px-4 py-3">{ride.id}</td>
                 <td className="px-4 py-3">{ride.driverName}</td>
@@ -106,11 +118,20 @@ const RidesManagement = () => {
                 <td className="px-4 py-3">{ride.dateTime}</td>
                 <td className="px-4 py-3">{ride.amount}</td>
                 <td className="px-4 py-3">{ride.distance}</td>
-                <td className="px-4 py-3 cursor-pointer"><FaEye/></td>
+                <td className="px-4 py-3 cursor-pointer"><FaEye /></td>
               </tr>
             ))}
           </tbody>
         </table>
+        <TablePagination
+          component="div"
+          count={rideDetails.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          className="flex justify-end"
+        />
       </div>
     </div>
 

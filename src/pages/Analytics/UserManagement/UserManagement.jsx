@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import TablePagination from '@mui/material/TablePagination';
 const UsersManagement = () => {
   const [users, setUsers] = useState([
     {
@@ -22,6 +22,16 @@ const UsersManagement = () => {
 
   const [filterText, setFilterText] = useState("");
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const handleUser = (id) => {
     navigate("/profile-section");
@@ -46,8 +56,8 @@ const UsersManagement = () => {
         <FaSearch className="absolute left-3 top-3 text-gray-500" />
       </div>
 
-      <div className="overflow-x-auto rounded-lg">
-        <table className="min-w-full bg-white shadow-md rounded-lg">
+      <div className="overflow-x-auto bg-white rounded-xl shadow-lg">
+        <table className="min-w-full table-auto">
           <thead>
             <tr className="bg-[#53514d] text-left text-sm font-semibold text-white">
               <th className="px-4 py-3">Id</th>
@@ -60,8 +70,8 @@ const UsersManagement = () => {
           </thead>
           <tbody>
             {filteredUser.length > 0 ? (
-              filteredUser.map((user) => (
-                <tr key={user.id} className="border-b hover:bg-gray-50 text-sm">
+              filteredUser.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
+                <tr key={user.id} className="border-t hover:bg-gray-50 text-sm">
                   <td className="px-4 py-3">{user.id}</td>
                   <td className="px-4 py-3">{user.name}</td>
                   <td className="px-4 py-3">{user.email}</td>
@@ -87,6 +97,15 @@ const UsersManagement = () => {
             )}
           </tbody>
         </table>
+        <TablePagination
+          component="div"
+          count={users.length}
+          page={page}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          className="flex justify-end"
+        />
       </div>
     </div>
   );

@@ -17,6 +17,9 @@ import NotificationSupport from "../pages/Analytics/NotificationSupport.jsx";
 import TicketManagement from "../pages/Analytics/TicketManagement.jsx";
 import RideDetails from "../pages/Analytics/RideManagement/RideDetails.jsx";
 import BookingManagement from "../pages/Analytics/BookingManagement/BookingManagement.jsx";
+import CarManagement from "../pages/Analytics/VehicleManagement.jsx/CarManagement.jsx";
+import VehicleCategory from "../pages/Analytics/VehicleManagement.jsx/VehicleCategory.jsx";
+import PriceSlot from "../pages/Analytics/VehicleManagement.jsx/PriceSlot.jsx";
 // import Compalaints from "../pages/Analytics/Complaints/Complaints.jsx";
 
 
@@ -41,11 +44,15 @@ const Layout = () => {
         {/* driver managemnt */}
         <Route path="/driver-management" element={<DriverManagement />} />
         <Route path="/driver-details" element={<ProfileAction/>} />
+        {/* -------------car management---------------- */}
+        <Route path="/car-management" element={<CarManagement/>}/>
 
        {/* Booking Management */}
        {/* <Route path="/booking-management" element={<BookingManagement />}/> */}
        {/* ticket management */}
        <Route path="/ticket-management" element={<TicketManagement/>}/>
+       <Route path="/category" element={<VehicleCategory/>}/>
+       <Route path="/price-slot" element={<PriceSlot/>}/>
        {/* <Route path="/complaints" element={<Compalaints/>}/> */}
         <Route path="*" element={<h2>404, Page Not Found</h2>} />
       </Routes>
